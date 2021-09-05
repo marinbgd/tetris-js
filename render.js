@@ -15,25 +15,35 @@ window.TETRIS.render = (function () {
         canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
     }
 
-    function renderElement (initialTop, initialLeft, element, blockSize) {
-        var top = initialTop
-        var left = initialLeft
-        element.forEach(function (row) {
+    function renderElement (element, blockSize) {
+        var top = element.top * blockSize
+        var initialLeft = element.left * blockSize
+        var left
+
+        var i = 0
+        var j = 0
+        var shapeRowCount = element.shape.length
+        var shapeColCount = element.shape[i].length
+        var cell
+        var gradient
+
+        for (i; i < shapeRowCount; i += 1) {
             left = initialLeft
-            row.forEach(function (cell) {
+            for (j = 0; j < shapeColCount; j += 1) {
+                cell = element.shape[i][j]
                 if (cell) {
-                    var gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
+                    gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
                     gradient.addColorStop(0, cell[0])
                     gradient.addColorStop(1, cell[1])
                     ctx.fillStyle = gradient
                     ctx.fillRect(left, top, blockSize, blockSize)
                 }
                 left += blockSize
-            })
+            }
             top += blockSize
-        })
+        }
     }
-
+    
     function clearCanvas () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
@@ -41,11 +51,20 @@ window.TETRIS.render = (function () {
     function renderGrid (grid, blockSize) {
         var top = 0
         var left = 0
-        grid.forEach(function (row) {
+
+        var cell
+        var gradient
+        var i = 0
+        var j = 0
+        var gridLength = grid.length
+        var gridHeight = grid[0].length
+
+        for (i; i < gridLength; i += 1) {
             left = 0
-            row.forEach(function (cell) {
+            for (j = 0; j < gridHeight; j += 1) {
+                cell = grid[i][j]
                 if (cell) {
-                    var gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
+                    gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
                     gradient.addColorStop(0, cell[0])
                     gradient.addColorStop(1, cell[1])
 
@@ -53,9 +72,9 @@ window.TETRIS.render = (function () {
                     ctx.fillRect(left, top, blockSize, blockSize)
                 }
                 left += blockSize
-            })
+            }
             top += blockSize
-        })
+        }
     }
 
     return {

@@ -1,18 +1,17 @@
 window.TETRIS.grid = (function () {
 
     // mutates grid
-    function mergeElementInGrid (grid, elementShape, top, left) {
-        console.log(top, left)
+    function mergeElementInGrid (grid, element) {
         var i = 0
-        var elementRowsCount = elementShape.length
+        var elementRowsCount = element.shape.length
         for (i; i < elementRowsCount; i += 1) {
             var j = 0
-            var rowLength = elementShape[i].length
+            var rowLength = element.shape[i].length
 
             for(j; j < rowLength; j += 1) {
-                var blockValue = elementShape[i][j]
+                var blockValue = element.shape[i][j]
                 if (blockValue) {
-                    grid[top + i][left + j] = blockValue    
+                    grid[element.top + i][element.left + j] = blockValue    
                 }
             }
         }
@@ -31,8 +30,48 @@ window.TETRIS.grid = (function () {
         return grid
     }
 
+    function getIsElementInCollision (element, grid) {
+        var inCollision = false
+        var i = 0
+        var elementRowsCount = element.shape.length
+        var rowLength = element.shape[i].length
+
+        var gridCol
+        var gridRow
+        var gridValue
+        var blockValue
+
+        checkMatrix:
+        for (i; i < elementRowsCount; i += 1) {
+            for(j = 0; j < rowLength; j += 1) {
+            
+                gridCol = element.top + i
+                if (gridCol >= grid.length) {
+                    inCollision = true
+                    break checkMatrix
+                }
+
+                gridRow = element.left + j
+                if (gridRow >= grid[0].length) {
+                    inCollision = true
+                    break checkMatrix
+                }
+
+                blockValue = element.shape[i][j]
+                gridValue = grid[element.top + i][element.left + j]
+                if (blockValue && gridValue) {
+                    inCollision = true
+                    break checkMatrix
+                }
+            }
+        }
+
+        return inCollision
+    }
+
     return {
         getEmptyGrid: getEmptyGrid,
         mergeElementInGrid: mergeElementInGrid,
+        getIsElementInCollision: getIsElementInCollision,
     }
 }())

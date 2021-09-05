@@ -37,6 +37,8 @@ window.TETRIS.main = (function () {
 
     function handleRight () {
         var newLeft = currentElement.left + 1
+        
+        // prevent going through the right boundary
         if (newLeft <= (grid.config.width - currentElement.getShapeWidth())) {
             currentElement.left = newLeft
         }
@@ -44,6 +46,8 @@ window.TETRIS.main = (function () {
 
     function handleLeft () {
         var newLeft = currentElement.left - 1
+        
+        // prevent going through the left boundary
         if (newLeft >= 0) {
             currentElement.left = newLeft
         }
@@ -51,11 +55,17 @@ window.TETRIS.main = (function () {
 
     function handleSpace () {
         isRunning = !isRunning
-        window.TETRIS.dom.renderStatus(isRunning)
+        var status = isRunning ? window.TETRIS.dom.STATUSES.RUNNING : window.TETRIS.dom.STATUSES.PAUSED
+        window.TETRIS.dom.renderStatus(status)
     }
 
     function handleRotate () {
-        currentElement.rotate()
+        currentElement.rotate(grid.config.width, grid.config.height)
+    }
+
+    function handleGameOver () {
+        isRunning = false
+        window.TETRIS.dom.renderStatus(window.TETRIS.dom.STATUSES.GAME_OVER)
     }
 
     function handleKeyDown (event) {
@@ -114,12 +124,9 @@ window.TETRIS.main = (function () {
     }
 
     function render () {
-        console.log('render')
         if (!isRunning) {
             return
         }
-
-        window.TETRIS.render.clearCanvas()
 
         var timeInMs = Date.now() - startTime
         currentFrame = Math.round(timeInMs / gameSpeedInMs)
@@ -130,38 +137,35 @@ window.TETRIS.main = (function () {
             currentElement.currentFrame = currentFrame
             currentElement.top += 1
         }
-        var elementBottom = currentElement.top + (currentElement.rowCount)
-        if (elementBottom > grid.config.height) {
-            // element got to the bottom
 
-            //merge element into grid state
-            grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement.shape, currentElement.top-1, currentElement.left)
-            window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
+        var isElementInCollision = window.TETRIS.grid.getIsElementInCollision(currentElement, grid.state)
+        if (isElementInCollision) {
+            // get top of the current element to previous position
+            currentElement.top -= 1
+
+            if (currentElement.top < 0) {
+                handleGameOver()
+                return
+            }
+
+            grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement)
 
             // get new element
             currentElement = nextElement
             nextElement = getNewRandomElement(currentFrame)
             window.TETRIS.canvasNextElement.renderElement(nextElement)
+        } else {
+            window.TETRIS.render.clearCanvas()
+            window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
+            window.TETRIS.render.renderElement(currentElement, grid.config.blockSizeInPx)
         }
-        window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
-        window.TETRIS.render.renderElement(
-            currentElement.top * grid.config.blockSizeInPx,
-            currentElement.left * grid.config.blockSizeInPx,
-            currentElement.shape,
-            grid.config.blockSizeInPx
-        )
     }
 
     function getNewRandomElement (startedFrame) {
         var colors = window.TETRIS.colors.getRandomColors()
         var element = window.TETRIS.blocks.getRandomElementWithColors(colors, grid.config.elementInitialLeft)
-        console.log(element)
         element.createdAtFrame = startedFrame
         element.currentFrame = startedFrame
-
-        //var el = new window.TETRIS.Block(element.shape)
-        //console.log(el)
-        //el.rotate()
         return element
     }
 
