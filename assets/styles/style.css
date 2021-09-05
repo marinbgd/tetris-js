@@ -23,27 +23,27 @@ body {
     background-position: center top;
 }
 .background--divcibare {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./assets/images/divcibare_by_marinbgd_de6ffrq-fullview.jpg') center top no-repeat;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/divcibare_by_marinbgd_de6ffrq-fullview.jpg') center top no-repeat;
     background-size: cover;
 }
 
 .background--fullmoon {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./assets/images/full_moon_by_marinbgd_d6a2dar-fullview.jpg') center top no-repeat;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/full_moon_by_marinbgd_d6a2dar-fullview.jpg') center top no-repeat;
     background-size: cover;
 }
 
 .background--house {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./assets/images/house_by_marinbgd_dbuwrib-fullview.jpg') center top no-repeat;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/house_by_marinbgd_dbuwrib-fullview.jpg') center top no-repeat;
     background-size: cover;
 }
 
 .background--lovebirds {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./assets/images/lovebirds_by_marinbgd_db6b494-fullview.jpg') center top no-repeat;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/lovebirds_by_marinbgd_db6b494-fullview.jpg') center top no-repeat;
     background-size: cover;
 }
 
 .background--palic {
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('./assets/images/palic_lake_sunset_by_marinbgd_darlzdd-fullview.jpg') center top no-repeat;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('../images/palic_lake_sunset_by_marinbgd_darlzdd-fullview.jpg') center top no-repeat;
     background-size: cover;
 }
 
