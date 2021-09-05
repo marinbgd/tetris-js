@@ -4,6 +4,7 @@ window.TETRIS.keys = (function () {
         ARROW_DOWN: 'ArrowDown',
         ARROW_LEFT: 'ArrowLeft',
         ARROW_RIGHT: 'ArrowRight',
+        ARROW_UP: 'ArrowUp',
         R: 'KeyR', //rotate
         SPACE: 'Space', //down
         ENTER: 'Enter', //down

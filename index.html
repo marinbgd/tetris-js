@@ -10,6 +10,11 @@
 <body>
     <main>
         <h1>Tetris JS</h1>
+
+        <aside id="points-container" class="points">
+            <span id="points-value">10</span>
+        </aside>
+
         <span id="game-status" class="game-status game-status--run">Running</span>
         <span id="game-time">00:00</span>
         <span class="game-score">Score: <span id="game-score">0</span></span>
@@ -22,13 +27,14 @@
         <aside class="keys">
             <span class="keys--title">Keys:</span>
             <ul class="keys--list">
+                <li class="keys--single"><span class="keys--button">R</span> - rotate</li>
+                <li class="keys--single"><span class="keys--button">Up Arrow</span> - rotate</li>
                 <li class="keys--single"><span class="keys--button">Left Arrow</span> - move left</li>
                 <li class="keys--single"><span class="keys--button">Right Arrow</span> - move right</li>
                 <li class="keys--single"><span class="keys--button">Down Arrow</span> - drop</li>
                 <li class="keys--single"><span class="keys--button">Spacebar</span> - drop</li>
                 <li class="keys--single"><span class="keys--button">Enter</span> - drop</li>
                 <li class="keys--single"><span class="keys--button">Back Space</span> - pause</li>
-                <li class="keys--single"><span class="keys--button">R</span> - rotate</li>
             </ul>
         </aside>
 

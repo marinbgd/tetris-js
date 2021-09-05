@@ -3,6 +3,9 @@ window.TETRIS.dom = (function () {
     var timeElement
     var statusElement
     var scoreElement
+    var pointsContainerElement
+    var pointsValueElement
+    var pointsFlashingTimeout = -1
 
     var STATUSES = {
         RUNNING: 'Running',
@@ -14,6 +17,21 @@ window.TETRIS.dom = (function () {
         timeElement = document.getElementById('game-time')
         statusElement = document.getElementById('game-status')
         scoreElement = document.getElementById('game-score')
+        pointsContainerElement = document.getElementById('points-container')
+        pointsValueElement = document.getElementById('points-value')
+    }
+
+    function renderNewPoints (newPoints) {
+        pointsContainerElement.className = 'points points--animation'
+        pointsValueElement.innerHTML = newPoints
+        window.clearTimeout(pointsFlashingTimeout)
+        pointsFlashingTimeout = setTimeout(removeNewPoints, 1000)
+    }
+
+    function removeNewPoints () {
+        pointsContainerElement.className = 'points'
+        window.clearTimeout(pointsFlashingTimeout)
+        pointsFlashingTimeout = -1
     }
 
     function renderScore (newScore) {
@@ -49,6 +67,7 @@ window.TETRIS.dom = (function () {
         renderGameTime: renderGameTime,
         renderStatus: renderStatus,
         renderScore: renderScore,
+        renderNewPoints: renderNewPoints,
         STATUSES: STATUSES,
     }
 }())

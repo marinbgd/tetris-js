@@ -72,6 +72,10 @@ window.TETRIS.main = (function () {
         window.TETRIS.dom.renderStatus(status)
     }
 
+    function handleUp () {
+        currentElement.rotate(grid.config.width, grid.config.height)
+    }
+
     function handleRotate () {
         currentElement.rotate(grid.config.width, grid.config.height)
     }
@@ -113,12 +117,16 @@ window.TETRIS.main = (function () {
             handleSpace()
         }
 
-        if (event.code === window.TETRIS.keys.keyMap.R) {
+        if (event.code === window.TETRIS.keys.keyMap.ENTER) {
+            handleEnter()
+        }
+
+        if (event.code === window.TETRIS.keys.keyMap.ARROW_UP) {
             handleRotate()
         }
 
-        if (event.code === window.TETRIS.keys.keyMap.ENTER) {
-            handleEnter()
+        if (event.code === window.TETRIS.keys.keyMap.R) {
+            handleRotate()
         }
     }
 
@@ -179,7 +187,7 @@ window.TETRIS.main = (function () {
             }
 
             grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement)
-            score += window.TETRIS.score.ELEMENT_DROP_POINTS
+            var newPoints = window.TETRIS.score.ELEMENT_DROP_POINTS
 
             var completedLineIndexes = window.TETRIS.grid.getCompletedLineIndexes(grid.state)
 
@@ -188,10 +196,12 @@ window.TETRIS.main = (function () {
                 window.TETRIS.render.clearCanvas()
                 window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
 
-                var newPoints = window.TETRIS.score.getScorePointsFromCompletedLines(completedLineIndexes.length)
-                score += newPoints
+                newPoints += window.TETRIS.score.getScorePointsFromCompletedLines(completedLineIndexes.length)
             }
 
+            score += newPoints
+
+            window.TETRIS.dom.renderNewPoints(newPoints)
             window.TETRIS.dom.renderScore(score)
 
 
