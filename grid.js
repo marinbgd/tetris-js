@@ -81,6 +81,7 @@ window.TETRIS.grid = (function () {
             var isInCollision = getIsElementInCollision(element, grid)
             if (isInCollision) {
                 isElementNotInCollision = false
+                element.top -= 1 // prepare element for merging into grid - must not intersect
                 break
             }
             element.top += 1
