@@ -108,31 +108,32 @@ window.TETRIS.main = (function () {
             currentElement.currentFrame = currentFrame
             currentElement.top += grid.config.blockSizeInPx
         }
-        var elementBottom = currentElement.top + (currentElement.element.rowCount * grid.config.blockSizeInPx)
+        var elementBottom = currentElement.top + (currentElement.rowCount * grid.config.blockSizeInPx)
         if (elementBottom > grid.config.heightInPx) {
             // element got to the bottom
 
             //merge element into grid state
-            grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement.element.shape, 20, 4)
-            window.TETRIS.render.renderGrid(grid.state, '#ffaaff', grid.config.blockSizeInPx)
+            grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement.shape, 20, 4)
+            window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
 
             // get new element
             currentElement = getNewRandomElement(currentFrame)
         }
-        window.TETRIS.render.renderGrid(grid.state, '#ffaaff', grid.config.blockSizeInPx)
+        window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
         window.TETRIS.render.renderElement(
             currentElement.top,
             currentElement.left,
-            currentElement.element.shape,
-            currentElement.color,
+            currentElement.shape,
             grid.config.blockSizeInPx
         )
     }
 
     function getNewRandomElement (startedFrame) {
-        var element = {}
-        element.element = window.TETRIS.blocks.getRandomElement()
-        element.color = window.TETRIS.colors.getRandomColor()
+        var colors = window.TETRIS.colors.getRandomColors()
+        var element = window.TETRIS.blocks.getRandomElementWithColors(colors)
+
+        //element.element = window.TETRIS.blocks.getRandomElement()
+        //element.colors = window.TETRIS.colors.getRandomColors()
         element.top = 0
         element.left = 0
         element.createdAtFrame = startedFrame

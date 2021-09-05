@@ -5,7 +5,6 @@ window.TETRIS.background = (function () {
 
     function init (canvasSize) {
         canvas = document.getElementById('background')
-        //canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
         setCanvasSize(canvasSize)
         ctx = canvas.getContext('2d', { alpha: false })
         ctx.imageSmoothingEnabled = false

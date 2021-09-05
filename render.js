@@ -5,7 +5,6 @@ window.TETRIS.render = (function () {
 
     function init (canvasSize) {
         canvas = document.getElementById('canvas')
-        //canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
         setCanvasSize(canvasSize)
         ctx = canvas.getContext('2d')
         ctx.imageSmoothingEnabled = false
@@ -16,14 +15,17 @@ window.TETRIS.render = (function () {
         canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
     }
 
-    function renderElement (initialTop, initialLeft, element, color, blockSize) {
-        ctx.fillStyle = color
+    function renderElement (initialTop, initialLeft, element, blockSize) {
         var top = initialTop
         var left = initialLeft
         element.forEach(function (row) {
             left = initialLeft
             row.forEach(function (cell) {
                 if (cell) {
+                    var gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
+                    gradient.addColorStop(0, cell[0])
+                    gradient.addColorStop(1, cell[1])
+                    ctx.fillStyle = gradient
                     ctx.fillRect(left, top, blockSize, blockSize)
                 }
                 left += blockSize
@@ -36,14 +38,18 @@ window.TETRIS.render = (function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
 
-    function renderGrid (grid, color, blockSize) {
-        ctx.fillStyle = color
+    function renderGrid (grid, blockSize) {
         var top = 0
         var left = 0
         grid.forEach(function (row) {
             left = 0
             row.forEach(function (cell) {
                 if (cell) {
+                    var gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
+                    gradient.addColorStop(0, cell[0])
+                    gradient.addColorStop(1, cell[1])
+
+                    ctx.fillStyle = gradient
                     ctx.fillRect(left, top, blockSize, blockSize)
                 }
                 left += blockSize

@@ -9,8 +9,9 @@ window.TETRIS.grid = (function () {
             var rowLength = elementShape[i].length
 
             for(j; j < rowLength; j += 1) {
-                if (elementShape[i][j]) {
-                    grid[top + i][left + j] = true    
+                var blockValue = elementShape[i][j]
+                if (blockValue) {
+                    grid[top + i][left + j] = blockValue    
                 }
             }
         }
@@ -18,16 +19,14 @@ window.TETRIS.grid = (function () {
     }
 
     function getEmptyGrid (width, height) {
+        var EMPTY_BLOCK = null
+        
         var grid = []
         var i = 0;
         for (i; i < height; i += 1) {
-            grid[i] = new Array(width).fill(false)
+            grid[i] = new Array(width).fill(EMPTY_BLOCK)
         }
 
-        grid[30][1] = true
-        grid[30][2] = true
-        grid[30][3] = true
-        grid[31][2] = true
         return grid
     }
 

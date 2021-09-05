@@ -1,21 +1,21 @@
 window.TETRIS.colors  = (function () {
 
-    var COLORS = [
-        '#66A1ED', // light blue
-        '#A0D231', // light green
-        '#E66D64', // light red
-        '#EA5D0D', // orange
-        '#C261EE', // light purple
-        '#EBCE26', // yellow
-        '#BEBEBE', // grey
+    var COLORS_DUAL = [
+        ['#66A1ED', '#4b76aa' ], // light blue
+        ['#A0D231', '#7ca026'], // light green
+        ['#E66D64', '#9b4a44'], // light red
+        ['#EA5D0D', '#b5460a'], // orange
+        ['#C261EE', '#994dbc'], // light purple
+        ['#EBCE26', '#b29c1e'], // yellow
+        ['#BEBEBE', '#878787'], // grey
     ]
 
-    function getRandomColor () {
-        var length = COLORS.length
-        return COLORS[Math.floor(Math.random() * length)]
+    function getRandomColors () {
+        var length = COLORS_DUAL.length
+        return COLORS_DUAL[Math.floor(Math.random() * length)]
     }
 
     return {
-        getRandomColor: getRandomColor,
+        getRandomColors: getRandomColors,
     }
 }())

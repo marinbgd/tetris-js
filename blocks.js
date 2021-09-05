@@ -55,16 +55,35 @@ window.TETRIS.blocks  = (function () {
         rowCount: 2,
     }
 
+    // mutates element
+    function addColorsToElement (element, colors) {
+        element.shape.forEach(function (row, indexR) {
+            row.forEach(function (cell, indexC) {
+                if (cell) {
+                    element.shape[indexR][indexC] = colors
+                }
+            })
+        })
+        return element
+    }
+
     function getRandomElement () {
         var ALL_ELEMENTS = [line, tBlock, square, zBlock, zBlock2, lBlock, lBlock2]
         var length = ALL_ELEMENTS.length
         return ALL_ELEMENTS[Math.floor(Math.random() * length)]
     }
 
+    function getRandomElementWithColors (colors) {
+        var ALL_ELEMENTS = [line, tBlock, square, zBlock, zBlock2, lBlock, lBlock2]
+        var length = ALL_ELEMENTS.length
+        var randomElement = ALL_ELEMENTS[Math.floor(Math.random() * length)]
+        var element = JSON.parse(JSON.stringify(randomElement))
+        return addColorsToElement(element, colors)
+    }
+
     return {
-        line: line,
-        square: square,
-        tBlock: tBlock,
         getRandomElement: getRandomElement,
+        getRandomElementWithColors: getRandomElementWithColors,
+        addColorsToElement: addColorsToElement,
     }
 }())
