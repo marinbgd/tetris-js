@@ -8,18 +8,42 @@ window.TETRIS.config = (function () {
         blockSizeInPx: -1,
     }
 
-    function setCanvasSize (canvas) {
+    function isFloat (n) {
+        return Number(n) === n && n % 1 !== 0
+    }
+
+    function getCanvasSize () {
+        // it is important to have whole numbers integers because of performance - antialiasing
+
         var calculatedHeight = window.innerHeight
         var calculatedWidth = Math.round(calculatedHeight / (PLAYGROUND.height / PLAYGROUND.width)) // set canvas size according to playground
-        canvas.height = calculatedHeight
-        canvas.width = calculatedWidth
+
+        var blockSizeInPx = calculatedWidth / PLAYGROUND.width
+        if (isFloat(blockSizeInPx)) {
+            // need to adjust width and height to be whole numbers
+            blockSizeInPx = Math.floor(blockSizeInPx)
+            calculatedWidth = blockSizeInPx * PLAYGROUND.width
+            calculatedHeight = blockSizeInPx * PLAYGROUND.height
+        }
+
+        return {
+            height: calculatedHeight,
+            width: calculatedWidth,
+            blockSizeInPx: blockSizeInPx,
+        }
+    }
+
+    function setCanvasSize (canvas) {
+        var size = getCanvasSize()
+        canvas.height = size.height
+        canvas.width = size.width
 
         // set physical canvas size - css size, to prevent scaling
-        canvas.style.width  = calculatedWidth + 'px'
-        canvas.style.height = calculatedHeight + 'px'
+        canvas.style.width  = size.width + 'px'
+        canvas.style.height = size.height + 'px'
 
         // set size of one block
-        PLAYGROUND.blockSizeInPx = calculatedWidth / PLAYGROUND.width
+        PLAYGROUND.blockSizeInPx = size.blockSizeInPx
     }
 
     function getPlaygroundConfig () {
@@ -27,6 +51,7 @@ window.TETRIS.config = (function () {
     }
 
     return {
+        getCanvasSize: getCanvasSize,
         setCanvasSize: setCanvasSize,
         getPlaygroundConfig: getPlaygroundConfig,
     }

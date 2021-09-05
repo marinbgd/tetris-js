@@ -1,13 +1,28 @@
 body {
     background-color: #111;
     color: #fefefe;
+    font-family: sans-serif;
+}
+
+#game-time {
+    font-size: 20px;
 }
 
 #canvas {
     display: block;
-    border: 2px solid greenyellow;
+    border: 2px solid red;
     position: absolute;
     top: 0;
     right: 1em;
     box-sizing: border-box;
+    z-index: 20;
+}
+#background {
+    display: block;
+    border: 3px solid greenyellow;
+    position: absolute;
+    top: 0;
+    right: 1em;
+    box-sizing: border-box;
+    z-index: 10;
 }

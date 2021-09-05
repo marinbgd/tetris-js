@@ -11,6 +11,7 @@ window.TETRIS.main = (function () {
 
     function handleWindowResize () {
         window.TETRIS.config.setCanvasSize(canvas)
+        window.TETRIS.background.setCanvasSize()
     }
 
     function handleRight () {
@@ -38,6 +39,9 @@ window.TETRIS.main = (function () {
     }
 
     function init () {
+        window.TETRIS.dom.init()
+        window.TETRIS.background.init()
+
         currentElement = getNewRandomElement(currentFrame)
 
         canvas = document.getElementById('canvas')
@@ -46,6 +50,7 @@ window.TETRIS.main = (function () {
         ctx.scale(1, 1)
 
         window.TETRIS.config.setCanvasSize(canvas)
+        window.TETRIS.background.renderGrid(window.TETRIS.config.getPlaygroundConfig())
 
         window.addEventListener('resize', handleWindowResize)
         document.addEventListener('keydown', handleKeyDown)
@@ -55,12 +60,12 @@ window.TETRIS.main = (function () {
         console.log('render')
         var PLAYGROUND = window.TETRIS.config.getPlaygroundConfig()
 
-        window.TETRIS.render.renderGrid(ctx, PLAYGROUND)
+        window.TETRIS.render.clearCanvas(canvas, ctx)
 
         var timeInMs = Date.now() - startTime
         currentFrame = Math.round(timeInMs / gameSpeedInMs)
 
-        window.TETRIS.render.renderGameTime(timeInMs, ctx)
+        window.TETRIS.dom.renderGameTime(timeInMs)
 
         if (currentElement.currentFrame < currentFrame) {
             currentElement.currentFrame = currentFrame
