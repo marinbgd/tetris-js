@@ -5,6 +5,7 @@ window.TETRIS.dom = (function () {
     var scoreElement
     var pointsContainerElement
     var pointsValueElement
+    var bodyElement
     var pointsFlashingTimeout = -1
 
     var STATUSES = {
@@ -13,12 +14,21 @@ window.TETRIS.dom = (function () {
         GAME_OVER: 'Game Over',
     }
 
+    var BACKGROUND_CLASS_NAMES = [
+        'background--divcibare',
+        'background--fullmoon',
+        'background--house',
+        'background--lovebirds',
+        'background--palic',
+    ]
+
     function init () {
         timeElement = document.getElementById('game-time')
         statusElement = document.getElementById('game-status')
         scoreElement = document.getElementById('game-score')
         pointsContainerElement = document.getElementById('points-container')
         pointsValueElement = document.getElementById('points-value')
+        bodyElement = document.body
     }
 
     function renderNewPoints (newPoints) {
@@ -62,12 +72,19 @@ window.TETRIS.dom = (function () {
         statusElement.innerHTML = status
     }
 
+    function setRandomBackgroundImage () {
+        var length = BACKGROUND_CLASS_NAMES.length
+        var randomBg = BACKGROUND_CLASS_NAMES[Math.floor(Math.random() * length)]
+        bodyElement.className = 'background ' + randomBg
+    }
+
     return {
         init: init,
         renderGameTime: renderGameTime,
         renderStatus: renderStatus,
         renderScore: renderScore,
         renderNewPoints: renderNewPoints,
+        setRandomBackgroundImage: setRandomBackgroundImage,
         STATUSES: STATUSES,
     }
 }())

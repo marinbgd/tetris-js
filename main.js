@@ -144,6 +144,7 @@ window.TETRIS.main = (function () {
 
     function init () {
         window.TETRIS.dom.init()
+        window.TETRIS.dom.setRandomBackgroundImage()
         var canvasSize = initCanvasSizes()
 
         window.TETRIS.render.init(canvasSize)
