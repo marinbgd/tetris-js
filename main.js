@@ -10,6 +10,8 @@ window.TETRIS.main = (function () {
 
     var grid = {
         config: {
+            elementInitialLeft: 4,
+
             width: 10,
             height: 40,
 
@@ -34,16 +36,26 @@ window.TETRIS.main = (function () {
     }
 
     function handleRight () {
-        currentElement.left += grid.config.blockSizeInPx
+        var newLeft = currentElement.left + 1
+        if (newLeft <= (grid.config.width - currentElement.getShapeWidth())) {
+            currentElement.left = newLeft
+        }
     }
 
     function handleLeft () {
-        currentElement.left -= grid.config.blockSizeInPx
+        var newLeft = currentElement.left - 1
+        if (newLeft >= 0) {
+            currentElement.left = newLeft
+        }
     }
 
     function handleSpace () {
         isRunning = !isRunning
         window.TETRIS.dom.renderStatus(isRunning)
+    }
+
+    function handleRotate () {
+        currentElement.rotate()
     }
 
     function handleKeyDown (event) {
@@ -63,6 +75,10 @@ window.TETRIS.main = (function () {
 
         if (event.code === window.TETRIS.keys.keyMap.SPACE) {
             handleSpace()
+        }
+
+        if (event.code === window.TETRIS.keys.keyMap.R) {
+            handleRotate()
         }
     }
 
@@ -112,14 +128,14 @@ window.TETRIS.main = (function () {
 
         if (currentElement.currentFrame < currentFrame) {
             currentElement.currentFrame = currentFrame
-            currentElement.top += grid.config.blockSizeInPx
+            currentElement.top += 1
         }
-        var elementBottom = currentElement.top + (currentElement.rowCount * grid.config.blockSizeInPx)
-        if (elementBottom > grid.config.heightInPx) {
+        var elementBottom = currentElement.top + (currentElement.rowCount)
+        if (elementBottom > grid.config.height) {
             // element got to the bottom
 
             //merge element into grid state
-            grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement.shape, 20, 4)
+            grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement.shape, currentElement.top-1, currentElement.left)
             window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
 
             // get new element
@@ -129,8 +145,8 @@ window.TETRIS.main = (function () {
         }
         window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
         window.TETRIS.render.renderElement(
-            currentElement.top,
-            currentElement.left,
+            currentElement.top * grid.config.blockSizeInPx,
+            currentElement.left * grid.config.blockSizeInPx,
             currentElement.shape,
             grid.config.blockSizeInPx
         )
@@ -138,14 +154,14 @@ window.TETRIS.main = (function () {
 
     function getNewRandomElement (startedFrame) {
         var colors = window.TETRIS.colors.getRandomColors()
-        var element = window.TETRIS.blocks.getRandomElementWithColors(colors)
-
-        //element.element = window.TETRIS.blocks.getRandomElement()
-        //element.colors = window.TETRIS.colors.getRandomColors()
-        element.top = 0
-        element.left = 0
+        var element = window.TETRIS.blocks.getRandomElementWithColors(colors, grid.config.elementInitialLeft)
+        console.log(element)
         element.createdAtFrame = startedFrame
         element.currentFrame = startedFrame
+
+        //var el = new window.TETRIS.Block(element.shape)
+        //console.log(el)
+        //el.rotate()
         return element
     }
 

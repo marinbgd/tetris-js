@@ -4,7 +4,6 @@ window.TETRIS.blocks  = (function () {
         shape: [
             [true, true, true, true],
         ],
-        rowCount: 1,
     }
 
     var square = {
@@ -12,7 +11,6 @@ window.TETRIS.blocks  = (function () {
             [true, true],
             [true, true],
         ],
-        rowCount: 2,
     }
 
     var tBlock = {
@@ -20,7 +18,6 @@ window.TETRIS.blocks  = (function () {
             [false, true, false],
             [true, true, true],
         ],
-        rowCount: 2,
     }
 
     var zBlock = {
@@ -28,7 +25,6 @@ window.TETRIS.blocks  = (function () {
             [false, true, true],
             [true, true, false],
         ],
-        rowCount: 2,
     }
 
     var zBlock2 = {
@@ -36,7 +32,6 @@ window.TETRIS.blocks  = (function () {
             [true, true, false],
             [false, true, true],
         ],
-        rowCount: 2,
     }
 
     var lBlock = {
@@ -52,7 +47,6 @@ window.TETRIS.blocks  = (function () {
             [true, false, false],
             [true, true, true],
         ],
-        rowCount: 2,
     }
 
     // mutates element
@@ -73,10 +67,12 @@ window.TETRIS.blocks  = (function () {
         return ALL_ELEMENTS[Math.floor(Math.random() * length)]
     }
 
-    function getRandomElementWithColors (colors) {
+    function getRandomElementWithColors (colors, initialLeftPosition) {
         var randomElement = getRandomElement()
-        var element = JSON.parse(JSON.stringify(randomElement))
-        return addColorsToElement(element, colors)
+        var randomElementCopy = JSON.parse(JSON.stringify(randomElement))
+        var randomElementWithColors = addColorsToElement(randomElementCopy, colors)
+        var element = new window.TETRIS.Block(randomElementWithColors.shape, initialLeftPosition)
+        return element
     }
 
     return {

@@ -2,6 +2,7 @@ window.TETRIS.grid = (function () {
 
     // mutates grid
     function mergeElementInGrid (grid, elementShape, top, left) {
+        console.log(top, left)
         var i = 0
         var elementRowsCount = elementShape.length
         for (i; i < elementRowsCount; i += 1) {
