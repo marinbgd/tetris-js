@@ -74,9 +74,7 @@ window.TETRIS.blocks  = (function () {
     }
 
     function getRandomElementWithColors (colors) {
-        var ALL_ELEMENTS = [line, tBlock, square, zBlock, zBlock2, lBlock, lBlock2]
-        var length = ALL_ELEMENTS.length
-        var randomElement = ALL_ELEMENTS[Math.floor(Math.random() * length)]
+        var randomElement = getRandomElement()
         var element = JSON.parse(JSON.stringify(randomElement))
         return addColorsToElement(element, colors)
     }
