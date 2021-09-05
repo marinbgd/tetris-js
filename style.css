@@ -5,6 +5,9 @@ body {
 
 #canvas {
     display: block;
-    margin: auto;
     border: 2px solid greenyellow;
+    position: absolute;
+    top: 0;
+    right: 1em;
+    box-sizing: border-box;
 }

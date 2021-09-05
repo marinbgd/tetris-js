@@ -1,8 +1,5 @@
 window.TETRIS.render = (function () {
 
-    var initialLeft = 0
-    var direction = 1
-
     function renderElement (initialTop, initialLeft, element, color, ctx, blockSize) {
         ctx.fillStyle = color
         var top = initialTop
@@ -19,43 +16,46 @@ window.TETRIS.render = (function () {
         })
     }
 
-    function renderGameTime (time, ctx) {
+    function renderGameTime (timeInMs, ctx) {
         ctx.font = '20px sans-serif';
         ctx.fillStyle = '#fefefe'
-        ctx.fillText(time, 150, 20)
+        var minutes = Math.floor((timeInMs / 1000) / 60)
+        var seconds = Math.floor((timeInMs / 1000) % 60)
+        var minutesString = minutes.toString().padStart(2, '0')
+        var secondsString = seconds.toString().padStart(2, '0')
+        ctx.fillText(minutesString + ':' + secondsString, 120, 20)
     }
 
-    function renderText () {
-        console.log('renderText')
+    function renderGrid (ctx, PLAYGROUND) {
+        ctx.lineWidth = 1
+        ctx.strokeStyle = PLAYGROUND.gridLineColor
 
         //set background color
-        ctx.fillStyle = '#222222'
+        ctx.fillStyle = PLAYGROUND.gridBackgroundColor
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-        //draw text
-        ctx.fillStyle = '#fefefe'
-
-        if (initialLeft >= canvas.width) {
-            direction = 0
+        // draw vertical
+        var i = 1;
+        var wLength = PLAYGROUND.width
+        for (i; i < wLength; i += 1) {
+            ctx.moveTo(i * PLAYGROUND.blockSizeInPx, 0)
+            ctx.lineTo(i * PLAYGROUND.blockSizeInPx, canvas.height)
+            ctx.stroke()
         }
 
-        if (initialLeft <= 0) {
-            direction = 1
+        // draw horizontal
+        var j = 1;
+        var hLength = PLAYGROUND.height
+        for (j; j < hLength; j += 1) {
+            ctx.moveTo(0, j * PLAYGROUND.blockSizeInPx)
+            ctx.lineTo(canvas.width, j * PLAYGROUND.blockSizeInPx)
+            ctx.stroke()
         }
-
-        if (direction) {
-            initialLeft += 1
-        } else {
-            initialLeft -= 1
-        }
-        
-    
-        ctx.fillText('Hello world', initialLeft, 50)
     }
 
     return {
-        renderText: renderText,
         renderGameTime: renderGameTime,
-        renderElement: renderElement
+        renderElement: renderElement,
+        renderGrid: renderGrid,
     }
 }())
