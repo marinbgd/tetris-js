@@ -75,5 +75,12 @@ body {
     padding-inline-start: 1.5em;
 }
 .keys--single {
-
+    padding: 0.25em 0;
+}
+.keys--button {
+    display: inline-block;
+    padding: 0.25em 1em;
+    border: 1px solid #fefefe;
+    border-radius: 3px;
+    background-color: #aaa;
 }
