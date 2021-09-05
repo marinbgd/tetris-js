@@ -9,7 +9,7 @@ window.TETRIS.grid = (function () {
         var elementRowsCount = element.shape.length
         var rowLength = element.shape[0].length
         var blockValue
-        for (i; i < elementRowsCount; i += 1) {
+        for (i = 0; i < elementRowsCount; i += 1) {
             for(j = 0; j < rowLength; j += 1) {
                 blockValue = element.shape[i][j]
                 if (blockValue) {
@@ -37,6 +37,7 @@ window.TETRIS.grid = (function () {
     function getIsElementInCollision (element, grid) {
         var inCollision = false
         var i = 0
+        var j = 0
         var elementRowsCount = element.shape.length
         var rowLength = element.shape[i].length
 
@@ -73,7 +74,20 @@ window.TETRIS.grid = (function () {
         return inCollision
     }
 
-    function isFullLines (grid) {
+    // mutates element top
+    function getToBottom (element, grid) {
+        var isElementNotInCollision = true
+        while (isElementNotInCollision) {
+            var isInCollision = getIsElementInCollision(element, grid)
+            if (isInCollision) {
+                isElementNotInCollision = false
+                break
+            }
+            element.top += 1
+        }
+    }
+
+    function getCompletedLineIndexes (grid) {
         var i = 0
         var j = 0
         var rowsCount = grid.length
@@ -118,7 +132,8 @@ window.TETRIS.grid = (function () {
         getEmptyGrid: getEmptyGrid,
         mergeElementInGrid: mergeElementInGrid,
         getIsElementInCollision: getIsElementInCollision,
-        isFullLines: isFullLines,
+        getCompletedLineIndexes: getCompletedLineIndexes,
         destroyGridLinesByIndexes: destroyGridLinesByIndexes,
+        getToBottom: getToBottom,
     }
 }())

@@ -54,7 +54,19 @@ window.TETRIS.main = (function () {
         }
     }
 
+    function handleDown () {
+        window.TETRIS.grid.getToBottom(currentElement, grid.state)
+    }
+
+    function handleEnter () {
+        window.TETRIS.grid.getToBottom(currentElement, grid.state)
+    }
+
     function handleSpace () {
+        window.TETRIS.grid.getToBottom(currentElement, grid.state)
+    }
+
+    function handleBackSpace () {
         isRunning = !isRunning
         var status = isRunning ? window.TETRIS.dom.STATUSES.RUNNING : window.TETRIS.dom.STATUSES.PAUSED
         window.TETRIS.dom.renderStatus(status)
@@ -71,8 +83,17 @@ window.TETRIS.main = (function () {
 
     function handleKeyDown (event) {
         event.stopPropagation()
+
         const isKeyValid = window.TETRIS.keys.getIsKeyValid(event)
         if (!isKeyValid) {
+            return
+        }
+
+        if (event.code === window.TETRIS.keys.keyMap.BACK_SPACE) {
+            handleBackSpace()
+        }
+
+        if (!isRunning) {
             return
         }
 
@@ -84,12 +105,20 @@ window.TETRIS.main = (function () {
             handleLeft()
         }
 
+        if (event.code === window.TETRIS.keys.keyMap.ARROW_DOWN) {
+            handleDown()
+        }
+
         if (event.code === window.TETRIS.keys.keyMap.SPACE) {
             handleSpace()
         }
 
         if (event.code === window.TETRIS.keys.keyMap.R) {
             handleRotate()
+        }
+
+        if (event.code === window.TETRIS.keys.keyMap.ENTER) {
+            handleEnter()
         }
     }
 
@@ -150,18 +179,20 @@ window.TETRIS.main = (function () {
             }
 
             grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement)
+            score += window.TETRIS.score.ELEMENT_DROP_POINTS
 
-            var fullLinesIndexes = window.TETRIS.grid.isFullLines(grid.state)
+            var completedLineIndexes = window.TETRIS.grid.getCompletedLineIndexes(grid.state)
 
-            if (fullLinesIndexes.length) {
-                grid.state = window.TETRIS.grid.destroyGridLinesByIndexes(grid.state, fullLinesIndexes)
+            if (completedLineIndexes.length) {
+                grid.state = window.TETRIS.grid.destroyGridLinesByIndexes(grid.state, completedLineIndexes)
                 window.TETRIS.render.clearCanvas()
                 window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
 
-                var newPoints = window.TETRIS.score.getScorePointsFromCompletedLines(fullLinesIndexes.length)
+                var newPoints = window.TETRIS.score.getScorePointsFromCompletedLines(completedLineIndexes.length)
                 score += newPoints
-                window.TETRIS.dom.renderScore(score)
             }
+
+            window.TETRIS.dom.renderScore(score)
 
 
             // get new element
