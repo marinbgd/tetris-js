@@ -29,7 +29,6 @@ window.TETRIS.background = (function () {
         for (i; i < wLength; i += 1) {
             ctx.moveTo(i * gridConfig.blockSizeInPx, 0)
             ctx.lineTo(i * gridConfig.blockSizeInPx, canvas.height)
-            ctx.stroke()
         }
 
         // draw horizontal
@@ -38,8 +37,9 @@ window.TETRIS.background = (function () {
         for (j; j < hLength; j += 1) {
             ctx.moveTo(0, j * gridConfig.blockSizeInPx)
             ctx.lineTo(canvas.width, j * gridConfig.blockSizeInPx)
-            ctx.stroke()
         }
+
+        ctx.stroke()
     }
 
     return {
