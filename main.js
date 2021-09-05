@@ -4,6 +4,7 @@ window.TETRIS.main = (function () {
     var currentFrame = 0
     var gameSpeedInMs = 100
     var isRunning = true
+    var score = 0
 
     var currentElement = null
     var nextElement = null
@@ -149,6 +150,19 @@ window.TETRIS.main = (function () {
             }
 
             grid.state = window.TETRIS.grid.mergeElementInGrid(grid.state, currentElement)
+
+            var fullLinesIndexes = window.TETRIS.grid.isFullLines(grid.state)
+
+            if (fullLinesIndexes.length) {
+                grid.state = window.TETRIS.grid.destroyGridLinesByIndexes(grid.state, fullLinesIndexes)
+                window.TETRIS.render.clearCanvas()
+                window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
+
+                var newPoints = window.TETRIS.score.getScorePointsFromCompletedLines(fullLinesIndexes.length)
+                score += newPoints
+                window.TETRIS.dom.renderScore(score)
+            }
+
 
             // get new element
             currentElement = nextElement

@@ -4,9 +4,6 @@ body {
     font-family: sans-serif;
 }
 
-#game-status {
-    display: block;
-}
 .game-status {
     display: block;
 }
@@ -16,9 +13,14 @@ body {
 .game-status--pause {
     color: orange;
 }
-
 .game-status--over {
     color: red;
+}
+
+.game-score {
+    display: block;
+    margin-top: 1em;
+    color: yellow;
 }
 
 #game-time {

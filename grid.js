@@ -1,15 +1,17 @@
 window.TETRIS.grid = (function () {
 
+    var EMPTY_GRID_CELL = null
+
     // mutates grid
     function mergeElementInGrid (grid, element) {
         var i = 0
+        var j = 0
         var elementRowsCount = element.shape.length
+        var rowLength = element.shape[0].length
+        var blockValue
         for (i; i < elementRowsCount; i += 1) {
-            var j = 0
-            var rowLength = element.shape[i].length
-
-            for(j; j < rowLength; j += 1) {
-                var blockValue = element.shape[i][j]
+            for(j = 0; j < rowLength; j += 1) {
+                blockValue = element.shape[i][j]
                 if (blockValue) {
                     grid[element.top + i][element.left + j] = blockValue    
                 }
@@ -18,13 +20,15 @@ window.TETRIS.grid = (function () {
         return grid
     }
 
+    function getEmptyGridRow (width) {
+        return new Array(width).fill(EMPTY_GRID_CELL)
+    }
+
     function getEmptyGrid (width, height) {
-        var EMPTY_BLOCK = null
-        
         var grid = []
         var i = 0;
         for (i; i < height; i += 1) {
-            grid[i] = new Array(width).fill(EMPTY_BLOCK)
+            grid[i] = getEmptyGridRow(width)
         }
 
         return grid
@@ -69,9 +73,52 @@ window.TETRIS.grid = (function () {
         return inCollision
     }
 
+    function isFullLines (grid) {
+        var i = 0
+        var j = 0
+        var rowsCount = grid.length
+        var colsCount = grid[0].length
+        var isRowFull = true
+        var fullRowIndexes = []
+
+        for (i; i < rowsCount; i += 1) {
+            isRowFull = true
+            for(j = 0; j < colsCount; j += 1) {
+                blockValue = grid[i][j]
+                if (!blockValue) {
+                    isRowFull = false
+                }
+            }
+            if (isRowFull) {
+                fullRowIndexes.push(i)
+            }
+        }
+
+        return fullRowIndexes
+    }
+
+    function destroyGridLinesByIndexes (grid, gridIndexes) {
+        var i = 0
+        var gridIndex
+        var gridColsCount = grid[0].length
+
+        for (i = 0; i < gridIndexes.length; i += 1) {
+            gridIndex = gridIndexes[i]
+            grid.splice(gridIndex, 1)
+        }
+
+        for (i = 0; i < gridIndexes.length; i += 1) {
+            grid.unshift(getEmptyGridRow(gridColsCount))
+        }
+
+        return grid
+    }
+
     return {
         getEmptyGrid: getEmptyGrid,
         mergeElementInGrid: mergeElementInGrid,
         getIsElementInCollision: getIsElementInCollision,
+        isFullLines: isFullLines,
+        destroyGridLinesByIndexes: destroyGridLinesByIndexes,
     }
 }())

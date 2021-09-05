@@ -2,6 +2,7 @@ window.TETRIS.dom = (function () {
 
     var timeElement
     var statusElement
+    var scoreElement
 
     var STATUSES = {
         RUNNING: 'Running',
@@ -12,6 +13,11 @@ window.TETRIS.dom = (function () {
     function init () {
         timeElement = document.getElementById('game-time')
         statusElement = document.getElementById('game-status')
+        scoreElement = document.getElementById('game-score')
+    }
+
+    function renderScore (newScore) {
+        scoreElement.innerHTML = newScore
     }
 
     function renderGameTime (timeInMs) {
@@ -42,6 +48,7 @@ window.TETRIS.dom = (function () {
         init: init,
         renderGameTime: renderGameTime,
         renderStatus: renderStatus,
+        renderScore: renderScore,
         STATUSES: STATUSES,
     }
 }())
