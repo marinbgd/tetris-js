@@ -2,7 +2,7 @@ window.TETRIS.main = (function () {
 
     var startTime = Date.now()
     var currentFrame = 0
-    var gameSpeedInMs = 100
+    var gameSpeedInMs = 200
     var isRunning = true
     var score = 0
 
@@ -14,7 +14,7 @@ window.TETRIS.main = (function () {
             elementInitialLeft: 4,
 
             width: 10,
-            height: 40,
+            height: 35,
 
             widthInPx: -1,
             heightInPx: -1,
@@ -22,7 +22,7 @@ window.TETRIS.main = (function () {
             blockSizeInPx: -1,
 
             backgroundColor: '#222222',
-            backgroundLineColor: '#331111',
+            backgroundLineColor: '#333333',
         },
         state: null,
     }
@@ -92,6 +92,8 @@ window.TETRIS.main = (function () {
         if (!isKeyValid) {
             return
         }
+
+        event.preventDefault()
 
         if (event.code === window.TETRIS.keys.keyMap.BACK_SPACE) {
             handleBackSpace()
