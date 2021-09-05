@@ -4,7 +4,8 @@ window.TETRIS.keys = (function () {
         ARROW_DOWN: 'ArrowDown',
         ARROW_LEFT: 'ArrowLeft',
         ARROW_RIGHT: 'ArrowRight',
-        R: 'KeyR',
+        R: 'KeyR', //rotate
+        SPACE: 'Space', //pause
     }
     var VALID_KEY_CODES = Object.values(VALID_KEY_CODES_MAP)
 

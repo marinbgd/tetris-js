@@ -4,8 +4,21 @@ body {
     font-family: sans-serif;
 }
 
+#game-status {
+    display: block;
+}
+.game-status {
+    display: block;
+}
+.game-status--run {
+    color: green;
+}
+.game-status--pause {
+    color: red;
+}
+
 #game-time {
-    font-size: 20px;
+    font-size: 1.25em;
 }
 
 #canvas {

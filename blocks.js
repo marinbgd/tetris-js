@@ -1,38 +1,59 @@
 window.TETRIS.blocks  = (function () {
 
-    var line = [
-        [1, 1, 1, 1],
-    ]
+    var line = {
+        shape: [
+            [true, true, true, true],
+        ],
+        rowCount: 1,
+    }
 
-    var square = [
-        [1, 1],
-        [1, 1],
-    ]
+    var square = {
+        shape: [
+            [true, true],
+            [true, true],
+        ],
+        rowCount: 2,
+    }
 
-    var tBlock = [
-        [0, 1, 0],
-        [1, 1, 1],
-    ]
+    var tBlock = {
+        shape: [
+            [false, true, false],
+            [true, true, true],
+        ],
+        rowCount: 2,
+    }
 
-    var zBlock = [
-        [0, 1, 1],
-        [1, 1, 0],
-    ]
+    var zBlock = {
+        shape: [
+            [false, true, true],
+            [true, true, false],
+        ],
+        rowCount: 2,
+    }
 
-    var zBlock2 = [
-        [1, 1, 0],
-        [0, 1, 1],
-    ]
+    var zBlock2 = {
+        shape: [
+            [true, true, false],
+            [false, true, true],
+        ],
+        rowCount: 2,
+    }
 
-    var lBlock = [
-        [0, 0, 1],
-        [1, 1, 1],
-    ]
+    var lBlock = {
+        shape: [
+            [false, false, true],
+           [true, true, true],
+        ],
+        rowCount: 2,
+    }
 
-    var lBlock2 = [
-        [1, 0, 0],
-        [1, 1, 1],
-    ]
+    var lBlock2 = {
+        shape: [
+            [true, false, false],
+            [true, true, true],
+        ],
+        rowCount: 2,
+    }
 
     function getRandomElement () {
         var ALL_ELEMENTS = [line, tBlock, square, zBlock, zBlock2, lBlock, lBlock2]

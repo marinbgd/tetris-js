@@ -20,7 +20,24 @@ window.TETRIS.render = (function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
 
+    function renderGrid (grid, color, ctx, blockSize) {
+        ctx.fillStyle = color
+        var top = 0
+        var left = 0
+        grid.forEach(function (row) {
+            left = 0
+            row.forEach(function (cell) {
+                if (cell) {
+                    ctx.fillRect(left, top, blockSize, blockSize)
+                }
+                left += blockSize
+            })
+            top += blockSize
+        })
+    }
+
     return {
+        renderGrid: renderGrid,
         renderElement: renderElement,
         clearCanvas: clearCanvas,
     }

@@ -6,8 +6,11 @@ window.TETRIS.main = (function () {
     var startTime = Date.now()
     var currentFrame = 0
     var gameSpeedInMs = 100
+    var isRunning = true
 
     var currentElement = null
+
+    var gridState = null
 
     function handleWindowResize () {
         window.TETRIS.config.setCanvasSize(canvas)
@@ -20,6 +23,11 @@ window.TETRIS.main = (function () {
 
     function handleLeft () {
         currentElement.left -= window.TETRIS.config.getPlaygroundConfig().blockSizeInPx
+    }
+
+    function handleSpace () {
+        isRunning = !isRunning
+        window.TETRIS.dom.renderStatus(isRunning)
     }
 
     function handleKeyDown (event) {
@@ -36,12 +44,16 @@ window.TETRIS.main = (function () {
         if (event.code === window.TETRIS.keys.keyMap.ARROW_LEFT) {
             handleLeft()
         }
+
+        if (event.code === window.TETRIS.keys.keyMap.SPACE) {
+            handleSpace()
+        }
     }
 
     function init () {
         window.TETRIS.dom.init()
         window.TETRIS.background.init()
-
+        gridState = getEmptyGrid(window.TETRIS.config.getPlaygroundConfig())
         currentElement = getNewRandomElement(currentFrame)
 
         canvas = document.getElementById('canvas')
@@ -58,6 +70,10 @@ window.TETRIS.main = (function () {
 
     function render () {
         console.log('render')
+        if (!isRunning) {
+            return
+        }
+
         var PLAYGROUND = window.TETRIS.config.getPlaygroundConfig()
 
         window.TETRIS.render.clearCanvas(canvas, ctx)
@@ -71,14 +87,22 @@ window.TETRIS.main = (function () {
             currentElement.currentFrame = currentFrame
             currentElement.top += PLAYGROUND.blockSizeInPx
         }
+        var elementBottom = currentElement.top + (currentElement.element.rowCount * PLAYGROUND.blockSizeInPx)
+        if (elementBottom > canvas.height) {
+            // element got to the bottom
 
-        if (currentElement.top > canvas.height) {
+            //merge element into grid state
+            gridState = mergeElementInGrid(gridState, currentElement.element.shape, 20, 4)
+            window.TETRIS.render.renderGrid(gridState, '#ffaaff', ctx, PLAYGROUND.blockSizeInPx)
+
+            // get new element
             currentElement = getNewRandomElement(currentFrame)
         }
+        window.TETRIS.render.renderGrid(gridState, '#ffaaff', ctx, PLAYGROUND.blockSizeInPx)
         window.TETRIS.render.renderElement(
             currentElement.top,
             currentElement.left,
-            currentElement.element,
+            currentElement.element.shape,
             currentElement.color,
             ctx,
             PLAYGROUND.blockSizeInPx
@@ -94,6 +118,37 @@ window.TETRIS.main = (function () {
         element.createdAtFrame = startedFrame
         element.currentFrame = startedFrame
         return element
+    }
+
+    function mergeElementInGrid (grid, elementShape, top, left) {
+        var i = 0
+        var elementRowsCount = elementShape.length
+        for (i; i < elementRowsCount; i += 1) {
+            var j = 0
+            var rowLength = elementShape[i].length
+
+            for(j; j < rowLength; j += 1) {
+                if (elementShape[i][j]) {
+                    grid[top + i][left + j] = true    
+                }
+            }
+        }
+        return grid
+    }
+
+    function getEmptyGrid () {
+        var grid = []
+        var PLAYGROUND = window.TETRIS.config.getPlaygroundConfig()
+        var i = 0;
+        for (i; i < PLAYGROUND.height; i += 1) {
+            grid[i] = new Array(PLAYGROUND.width).fill(false)
+        }
+
+        grid[30][1] = true
+        grid[30][2] = true
+        grid[30][3] = true
+        grid[31][2] = true
+        return grid
     }
 
     function start () {

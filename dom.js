@@ -1,9 +1,11 @@
 window.TETRIS.dom = (function () {
 
     var timeElement
+    var statusElement
 
     function init () {
         timeElement = document.getElementById('game-time')
+        statusElement = document.getElementById('game-status')
     }
 
     function renderGameTime (timeInMs) {
@@ -14,8 +16,19 @@ window.TETRIS.dom = (function () {
         timeElement.innerHTML = minutesString + ':' + secondsString
     }
 
+    function renderStatus (isRunning) {
+        if (isRunning) {
+            statusElement.innerHTML = 'Running'
+            statusElement.className = 'game-status game-status--run'
+        } else {
+            statusElement.innerHTML = 'Paused'
+            statusElement.className = 'game-status game-status--pause'
+        }
+    }
+
     return {
         init: init,
         renderGameTime: renderGameTime,
+        renderStatus: renderStatus,
     }
 }())
