@@ -6,9 +6,15 @@ window.TETRIS.canvasNextElement = (function () {
 
     function init (newBlockSizeInPx) {
         canvas = document.getElementById('next-element--canvas')
-        ctx = canvas.getContext('2d', { alpha: true })
+        ctx = canvas.getContext('2d')
         ctx.imageSmoothingEnabled = false
         ctx.scale(1, 1)
+
+        setCanvasSize(newBlockSizeInPx)
+    }
+
+    function setCanvasSize (newBlockSizeInPx) {
+        blockSizeInPx = newBlockSizeInPx
 
         canvas.height = newBlockSizeInPx * 4
         canvas.width = newBlockSizeInPx * 4
@@ -16,8 +22,6 @@ window.TETRIS.canvasNextElement = (function () {
         // set physical canvas size - css size, to prevent scaling
         canvas.style.width  = (newBlockSizeInPx * 4) + 'px'
         canvas.style.height = (newBlockSizeInPx * 4) + 'px'
-
-        blockSizeInPx = newBlockSizeInPx
     }
 
     function clearCanvas () {
@@ -25,7 +29,6 @@ window.TETRIS.canvasNextElement = (function () {
     }
 
     function renderElement (element) {
-        console.log(element)
         clearCanvas()
 
         var left = 0
@@ -49,5 +52,6 @@ window.TETRIS.canvasNextElement = (function () {
     return {
         init: init,
         renderElement: renderElement,
+        setCanvasSize: setCanvasSize,
     }
 }())

@@ -29,6 +29,8 @@ window.TETRIS.main = (function () {
         window.TETRIS.render.setCanvasSize(canvasSize)
         window.TETRIS.background.setCanvasSize(canvasSize)
         window.TETRIS.background.renderGrid(grid.config)
+        window.TETRIS.canvasNextElement.setCanvasSize(canvasSize.blockSizeInPx)
+        window.TETRIS.canvasNextElement.renderElement(nextElement)
     }
 
     function handleRight () {
