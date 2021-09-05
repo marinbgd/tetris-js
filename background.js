@@ -3,55 +3,49 @@ window.TETRIS.background = (function () {
     var ctx
     var canvas
 
-    function setCanvasSize () {
-        var size = window.TETRIS.config.getCanvasSize()
-        canvas.height = size.height
-        canvas.width = size.width
-
-        // set physical canvas size - css size, to prevent scaling
-        canvas.style.width  = size.width + 'px'
-        canvas.style.height = size.height + 'px'
-    }
-
-    function init () {
+    function init (canvasSize) {
         canvas = document.getElementById('background')
+        //canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
+        setCanvasSize(canvasSize)
         ctx = canvas.getContext('2d', { alpha: false })
         ctx.imageSmoothingEnabled = false
         ctx.scale(1, 1)
-
-        setCanvasSize()
     }
 
-    function renderGrid (PLAYGROUND) {
+    function setCanvasSize (canvasSize) {
+        canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
+    }
+
+    function renderGrid (gridConfig) {
         ctx.lineWidth = 1
-        ctx.strokeStyle = PLAYGROUND.gridLineColor
+        ctx.strokeStyle = gridConfig.backgroundLineColor
 
         //set background color
-        ctx.fillStyle = PLAYGROUND.gridBackgroundColor
+        ctx.fillStyle = gridConfig.backgroundColor
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
         // draw vertical
         var i = 1;
-        var wLength = PLAYGROUND.width
+        var wLength = gridConfig.width
         for (i; i < wLength; i += 1) {
-            ctx.moveTo(i * PLAYGROUND.blockSizeInPx, 0)
-            ctx.lineTo(i * PLAYGROUND.blockSizeInPx, canvas.height)
+            ctx.moveTo(i * gridConfig.blockSizeInPx, 0)
+            ctx.lineTo(i * gridConfig.blockSizeInPx, canvas.height)
             ctx.stroke()
         }
 
         // draw horizontal
         var j = 1;
-        var hLength = PLAYGROUND.height
+        var hLength = gridConfig.height
         for (j; j < hLength; j += 1) {
-            ctx.moveTo(0, j * PLAYGROUND.blockSizeInPx)
-            ctx.lineTo(canvas.width, j * PLAYGROUND.blockSizeInPx)
+            ctx.moveTo(0, j * gridConfig.blockSizeInPx)
+            ctx.lineTo(canvas.width, j * gridConfig.blockSizeInPx)
             ctx.stroke()
         }
     }
 
     return {
         init: init,
-        renderGrid: renderGrid,
         setCanvasSize: setCanvasSize,
+        renderGrid: renderGrid,
     }
 }())

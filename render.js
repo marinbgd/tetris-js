@@ -1,6 +1,22 @@
 window.TETRIS.render = (function () {
 
-    function renderElement (initialTop, initialLeft, element, color, ctx, blockSize) {
+    var canvas
+    var ctx
+
+    function init (canvasSize) {
+        canvas = document.getElementById('canvas')
+        //canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
+        setCanvasSize(canvasSize)
+        ctx = canvas.getContext('2d')
+        ctx.imageSmoothingEnabled = false
+        ctx.scale(1, 1)
+    }
+
+    function setCanvasSize (canvasSize) {
+        canvas = window.TETRIS.canvasHelper.setCanvasSize(canvas, canvasSize)
+    }
+
+    function renderElement (initialTop, initialLeft, element, color, blockSize) {
         ctx.fillStyle = color
         var top = initialTop
         var left = initialLeft
@@ -16,11 +32,11 @@ window.TETRIS.render = (function () {
         })
     }
 
-    function clearCanvas (canvas, ctx) {
+    function clearCanvas () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
 
-    function renderGrid (grid, color, ctx, blockSize) {
+    function renderGrid (grid, color, blockSize) {
         ctx.fillStyle = color
         var top = 0
         var left = 0
@@ -37,6 +53,8 @@ window.TETRIS.render = (function () {
     }
 
     return {
+        init: init,
+        setCanvasSize: setCanvasSize,
         renderGrid: renderGrid,
         renderElement: renderElement,
         clearCanvas: clearCanvas,
