@@ -12,6 +12,24 @@
         <h1>Tetris JS</h1>
         <span id="game-status" class="game-status game-status--run">Running</span>
         <span id="game-time">00:00</span>
+
+        <aside class="next-element">
+            <span class="next-element--label">Next Element:</span>
+            <canvas id="next-element--canvas"></canvas>
+        </aside>
+
+        <aside class="keys">
+            <span class="keys--title">Keys:</span>
+            <ul class="keys--list">
+                <li class="keys--single">Spacebar - pause</li>
+                <li class="keys--single">Left Arrow - move left</li>
+                <li class="keys--single">Right Arrow - move right</li>
+                <li class="keys--single">Down Arrow - drop</li>
+                <li class="keys--single">R - rotate</li>
+                <li class="keys--single">C - counter-rotate</li>
+            </ul>
+        </aside>
+
         <canvas id="background"></canvas>
         <canvas id="canvas"></canvas>
     </main>
@@ -26,6 +44,7 @@
     <script src="./grid.js"></script>
     <script src="./dom.js"></script>
     <script src="./background.js"></script>
+    <script src="./canvasNextElement.js"></script>
     <script src="./render.js"></script>
     <script src="./main.js"></script>
 </body>

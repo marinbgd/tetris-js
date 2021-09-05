@@ -26,16 +26,54 @@ body {
     border: 2px solid red;
     position: absolute;
     top: 0;
-    right: 1em;
+    right: 0.5em;
     box-sizing: border-box;
     z-index: 20;
 }
+
 #background {
     display: block;
-    border: 3px solid greenyellow;
+    border: 4px solid greenyellow;
     position: absolute;
     top: 0;
-    right: 1em;
+    right: 0.5em;
     box-sizing: border-box;
     z-index: 10;
+}
+
+.next-element {
+    margin-top: 2em;
+    padding-bottom: 0.5em;
+    position: relative;
+}
+
+.next-element--label {
+    display: block;
+    padding-bottom: 0.5em;
+    color: yellow;
+}
+
+#next-element--canvas {
+    display: block;
+    border: 3px solid yellow;
+    position: relative;
+    box-sizing: content-box;
+    z-index: 10;
+
+    padding: 0.5em;
+}
+
+.keys {
+    padding: 1em 0;
+}
+.keys--title {
+    margin: 0;
+    color: yellow;
+}
+.keys--list {
+    margin: 0;
+    padding-inline-start: 1.5em;
+}
+.keys--single {
+
 }

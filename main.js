@@ -6,6 +6,7 @@ window.TETRIS.main = (function () {
     var isRunning = true
 
     var currentElement = null
+    var nextElement = null
 
     var grid = {
         config: {
@@ -81,11 +82,14 @@ window.TETRIS.main = (function () {
 
         window.TETRIS.render.init(canvasSize)
         window.TETRIS.background.init(canvasSize)
+        window.TETRIS.canvasNextElement.init(canvasSize.blockSizeInPx)
 
         window.TETRIS.background.renderGrid(grid.config)
 
         grid.state = window.TETRIS.grid.getEmptyGrid(grid.config.width, grid.config.height)
         currentElement = getNewRandomElement(currentFrame)
+        nextElement = getNewRandomElement(currentFrame)
+        window.TETRIS.canvasNextElement.renderElement(nextElement)
 
         window.addEventListener('resize', handleWindowResize)
         document.addEventListener('keydown', handleKeyDown)
@@ -117,7 +121,9 @@ window.TETRIS.main = (function () {
             window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
 
             // get new element
-            currentElement = getNewRandomElement(currentFrame)
+            currentElement = nextElement
+            nextElement = getNewRandomElement(currentFrame)
+            window.TETRIS.canvasNextElement.renderElement(nextElement)
         }
         window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
         window.TETRIS.render.renderElement(
