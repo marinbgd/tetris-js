@@ -3,6 +3,7 @@ window.TETRIS.dom = (function () {
     var timeElement
     var statusElement
     var scoreElement
+    var modeElement
     var pointsContainerElement
     var pointsValueElement
     var bodyElement
@@ -26,6 +27,7 @@ window.TETRIS.dom = (function () {
         timeElement = document.getElementById('game-time')
         statusElement = document.getElementById('game-status')
         scoreElement = document.getElementById('game-score')
+        modeElement = document.getElementById('game-mode')
         pointsContainerElement = document.getElementById('points-container')
         pointsValueElement = document.getElementById('points-value')
         bodyElement = document.body
@@ -46,6 +48,10 @@ window.TETRIS.dom = (function () {
 
     function renderScore (newScore) {
         scoreElement.innerHTML = newScore
+    }
+
+    function renderGameMode (newMode) {
+        modeElement.innerHTML = newMode
     }
 
     function renderGameTime (timeInMs) {
@@ -83,6 +89,7 @@ window.TETRIS.dom = (function () {
         renderGameTime: renderGameTime,
         renderStatus: renderStatus,
         renderScore: renderScore,
+        renderGameMode: renderGameMode,
         renderNewPoints: renderNewPoints,
         setRandomBackgroundImage: setRandomBackgroundImage,
         STATUSES: STATUSES,

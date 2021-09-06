@@ -69,6 +69,13 @@ h1 {
     color: red;
 }
 
+.game-mode {
+    text-transform: uppercase;
+    display: block;
+    margin-top: 1em;
+    color: yellow;
+}
+
 .game-score {
     display: block;
     margin-top: 1em;
@@ -186,4 +193,42 @@ h1 {
         background-color: yellow;
         transform: scale(1, 1)
     }
+}
+
+.config {
+    position: absolute;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 4px solid #111;
+    width: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1em;
+    border-radius: 3px;
+    display: none;
+}
+.config--visible {
+    display: block;
+}
+.config__title {
+    font-size: 1.5em;
+}
+.config__button {
+    display: block;
+    margin: auto;
+    width: 20em;
+    font-size: 1.5em;
+    margin-top: 0.25em;
+    background-color: #ddd;
+    border-top-color: #999;
+    border-left-color: #999;
+    border-right-color: #666;
+    border-bottom-color: #666;
+    transition: backround-color 0.15s;
+}
+.config__button:hover,
+.config__button:focus {
+    background-color: #999;
+    cursor: pointer;
 }

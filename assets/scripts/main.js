@@ -2,7 +2,7 @@ window.TETRIS.main = (function () {
 
     var startTime = Date.now()
     var currentFrame = 0
-    var gameSpeedInMs = 200
+    var gameSpeedInMs = window.TETRIS.difficulty.getGameSpeedByDifficulty('easy')
     var isRunning = true
     var score = 0
 
@@ -36,6 +36,46 @@ window.TETRIS.main = (function () {
         window.TETRIS.canvasNextElement.renderElement(nextElement)
     }
 
+    function resetGame () {
+        score = 0
+        currentFrame = 0
+        isRunning = false
+        currentElement = null
+        nextElement = null
+        startTime = Date.now()
+
+        pauseGame()
+
+        grid.state = window.TETRIS.grid.getEmptyGrid(grid.config.width, grid.config.height)
+        currentElement = getNewRandomElement(currentFrame)
+        nextElement = getNewRandomElement(currentFrame)
+        window.TETRIS.render.clearCanvas()
+        window.TETRIS.canvasNextElement.renderElement(nextElement)
+    }
+
+    function pauseGame () {
+        isRunning = false
+        var status = window.TETRIS.dom.STATUSES.PAUSED
+        window.TETRIS.dom.renderStatus(status)
+    }
+
+    function resumeGame () {
+        isRunning = true
+        var status = window.TETRIS.dom.STATUSES.RUNNING
+        window.TETRIS.dom.renderStatus(status)
+    }
+
+    function handleC () {
+        resetGame()
+        var promise = window.TETRIS.configDialog.show()
+        promise.then(function (newDifficultyLevel) {
+            window.TETRIS.dom.renderGameMode(newDifficultyLevel)
+            var newGameSpeed = window.TETRIS.difficulty.getGameSpeedByDifficulty(newDifficultyLevel)
+            gameSpeedInMs = newGameSpeed
+            resumeGame()
+        })
+    }
+
     function handleRight () {
         var newLeft = currentElement.left + 1
         
@@ -67,9 +107,11 @@ window.TETRIS.main = (function () {
     }
 
     function handleBackSpace () {
-        isRunning = !isRunning
-        var status = isRunning ? window.TETRIS.dom.STATUSES.RUNNING : window.TETRIS.dom.STATUSES.PAUSED
-        window.TETRIS.dom.renderStatus(status)
+        if (isRunning) {
+            pauseGame()
+        } else {
+            resumeGame()
+        }
     }
 
     function handleUp () {
@@ -128,7 +170,11 @@ window.TETRIS.main = (function () {
         }
 
         if (event.code === window.TETRIS.keys.keyMap.R) {
-            handleRotate()
+            handleUp()
+        }
+
+        if (event.code === window.TETRIS.keys.keyMap.C) {
+            handleC()
         }
     }
 

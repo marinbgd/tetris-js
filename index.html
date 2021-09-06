@@ -16,6 +16,7 @@
         </aside>
 
         <span id="game-status" class="game-status game-status--run">Running</span>
+        <span id="game-mode" class="game-mode">easy</span>
         <span id="game-time">00:00</span>
         <span class="game-score">Score: <span id="game-score">0</span></span>
 
@@ -35,11 +36,21 @@
                 <li class="keys--single"><span class="keys--button">Spacebar</span> - drop</li>
                 <li class="keys--single"><span class="keys--button">Enter</span> - drop</li>
                 <li class="keys--single"><span class="keys--button">Back Space</span> - pause</li>
+                <li class="keys--single"><span class="keys--button">C</span> - config</li>
             </ul>
         </aside>
 
         <canvas id="background"></canvas>
         <canvas id="canvas"></canvas>
+
+        <aside id="config-dialog" class="config">
+            <span class="config__title">Select Difficulty:</span>
+            <button type="button" tabindex="1" value="easy" class="config__button">EASY</button>
+            <button type="button" tabindex="2" value="medium" class="config__button">MEDIUM</button>
+            <button type="button" tabindex="3" value="hard" class="config__button">HARD</button>
+            <button type="button" tabindex="4" value="expert" class="config__button">EXPERT</button>
+            <button type="button" tabindex="5" value="impossible" class="config__button">IMPOSSIBLE</button>
+        </aside>
     </main>
 
     <script>
@@ -48,10 +59,12 @@
     <script src="./assets/scripts/canvasHelper.js"></script>
     <script src="./assets/scripts/colors.js"></script>
     <script src="./assets/scripts/score.js"></script>
+    <script src="./assets/scripts/difficulty.js"></script>
     <script src="./assets/scripts/Block.js"></script>
     <script src="./assets/scripts/blocks.js"></script>
     <script src="./assets/scripts/keys.js"></script>
     <script src="./assets/scripts/grid.js"></script>
+    <script src="./assets/scripts/configDialog.js"></script>
     <script src="./assets/scripts/dom.js"></script>
     <script src="./assets/scripts/background.js"></script>
     <script src="./assets/scripts/canvasNextElement.js"></script>

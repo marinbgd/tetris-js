@@ -53,5 +53,6 @@ window.TETRIS.canvasNextElement = (function () {
         init: init,
         renderElement: renderElement,
         setCanvasSize: setCanvasSize,
+        clearCanvas: clearCanvas,
     }
 }())

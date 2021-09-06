@@ -6,6 +6,7 @@ window.TETRIS.keys = (function () {
         ARROW_RIGHT: 'ArrowRight',
         ARROW_UP: 'ArrowUp',
         R: 'KeyR', //rotate
+        C: 'KeyC', //config
         SPACE: 'Space', //down
         ENTER: 'Enter', //down
         BACK_SPACE: 'Backspace', //pause
