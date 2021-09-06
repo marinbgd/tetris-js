@@ -191,6 +191,7 @@ window.TETRIS.main = (function () {
     }
 
     function init () {
+        window.TETRIS.sound.init()
         window.TETRIS.dom.init()
         window.TETRIS.dom.setRandomBackgroundImage()
         var canvasSize = initCanvasSizes()
@@ -241,10 +242,10 @@ window.TETRIS.main = (function () {
             var completedLineIndexes = window.TETRIS.grid.getCompletedLineIndexes(grid.state)
 
             if (completedLineIndexes.length) {
+                window.TETRIS.sound.playSplat()
                 grid.state = window.TETRIS.grid.destroyGridLinesByIndexes(grid.state, completedLineIndexes)
                 window.TETRIS.render.clearCanvas()
                 window.TETRIS.render.renderGrid(grid.state, grid.config.blockSizeInPx)
-
                 newPoints += window.TETRIS.score.getScorePointsFromCompletedLines(completedLineIndexes.length)
             }
 
