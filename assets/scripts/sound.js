@@ -3,7 +3,7 @@ window.TETRIS.sound = (function () {
     var audio
 
     function init () {
-        audio = new Audio('./assets/sounds/splat.wav')
+        audio = new Audio('./assets/sounds/splat.mp3')
     }
 
     function playSplat () {
