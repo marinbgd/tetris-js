@@ -18,7 +18,7 @@ window.TETRIS.main = (function () {
 
             widthInPx: -1,
             heightInPx: -1,
-        
+
             blockSizeInPx: -1,
 
             backgroundColor: '#222222',
@@ -66,19 +66,24 @@ window.TETRIS.main = (function () {
     }
 
     function handleC () {
-        resetGame()
+        pauseGame()
         var promise = window.TETRIS.configDialog.show()
-        promise.then(function (newDifficultyLevel) {
-            window.TETRIS.dom.renderGameMode(newDifficultyLevel)
-            var newGameSpeed = window.TETRIS.difficulty.getGameSpeedByDifficulty(newDifficultyLevel)
-            gameSpeedInMs = newGameSpeed
-            resumeGame()
-        })
+        promise
+            .then(function (newDifficultyLevel) {
+                resetGame()
+                window.TETRIS.dom.renderGameMode(newDifficultyLevel)
+                var newGameSpeed = window.TETRIS.difficulty.getGameSpeedByDifficulty(newDifficultyLevel)
+                gameSpeedInMs = newGameSpeed
+                resumeGame()
+            })
+            .catch(function () {
+                resumeGame()
+            })
     }
 
     function handleRight () {
         var newLeft = currentElement.left + 1
-        
+
         // prevent going through the right boundary
         if (newLeft <= (grid.config.width - currentElement.getShapeWidth())) {
             currentElement.left = newLeft
@@ -87,7 +92,7 @@ window.TETRIS.main = (function () {
 
     function handleLeft () {
         var newLeft = currentElement.left - 1
-        
+
         // prevent going through the left boundary
         if (newLeft >= 0) {
             currentElement.left = newLeft
