@@ -25,10 +25,12 @@ window.TETRIS.configDialog = (function () {
         if (event.code === window.TETRIS.keys.keyMap.C) {
             currentDeferred.reject('closed')
             hide() // just close the config
+            return
         }
 
         if (event.code === window.TETRIS.keys.keyMap.ENTER) {
             allButtonElements[currentActiveButtonIndex].click()
+            return
         }
 
         var nextIndex = currentActiveButtonIndex + 1
