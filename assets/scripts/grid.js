@@ -25,7 +25,6 @@ window.TETRIS.grid = (function () {
     }
 
     function getEmptyGrid (width, height) {
-        console.log(width, height)
         var grid = []
         var i = 0;
         for (i; i < height; i += 1) {

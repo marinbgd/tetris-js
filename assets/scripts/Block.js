@@ -1,14 +1,9 @@
-window.TETRIS.Block  = (function () {
-
-    function Block (shape, initialLeftPosition) {
-        this.shape = shape
-        this.rowCount = this.getRowCountFromShape()
-        this.top = 0
-        this.left = initialLeftPosition
-    }
-    
-    return Block
-}())
+window.TETRIS.Block = function Block (shape, initialLeftPosition) {
+    this.shape = shape
+    this.rowCount = this.getRowCountFromShape()
+    this.top = 0
+    this.left = initialLeftPosition
+}
 
 window.TETRIS.Block.prototype.rotate = function rotate (MAX_LEFT, MAX_BOTTOM) {
     var rotatedShape = this.shape[0].map((val, index) => this.shape.map(row => row[index]).reverse())
