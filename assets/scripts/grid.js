@@ -13,7 +13,7 @@ window.TETRIS.grid = (function () {
             for(j = 0; j < rowLength; j += 1) {
                 blockValue = element.shape[i][j]
                 if (blockValue) {
-                    grid[element.top + i][element.left + j] = blockValue    
+                    grid[element.top + i][element.left + j] = blockValue
                 }
             }
         }
@@ -25,6 +25,7 @@ window.TETRIS.grid = (function () {
     }
 
     function getEmptyGrid (width, height) {
+        console.log(width, height)
         var grid = []
         var i = 0;
         for (i; i < height; i += 1) {
@@ -49,7 +50,7 @@ window.TETRIS.grid = (function () {
         checkMatrix:
         for (i; i < elementRowsCount; i += 1) {
             for(j = 0; j < rowLength; j += 1) {
-            
+
                 gridCol = element.top + i
                 if (gridCol >= grid.length) {
                     inCollision = true

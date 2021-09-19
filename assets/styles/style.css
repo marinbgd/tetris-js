@@ -82,6 +82,12 @@ h1 {
     color: yellow;
 }
 
+.game-grid-size {
+    display: block;
+    margin-top: 1em;
+    color: yellow;
+}
+
 #game-time {
     font-size: 1.25em;
 }
@@ -204,7 +210,7 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 1em;
+    padding: 0.5em 1em;
     border-radius: 3px;
     display: none;
 }
@@ -213,13 +219,15 @@ h1 {
 }
 .config__title {
     font-size: 1.5em;
+    padding-top: 1em;
+    display: block;
 }
 .config__button {
     display: block;
     margin: auto;
+    margin-top: 0.25em;
     width: 20em;
     font-size: 1.5em;
-    margin-top: 0.25em;
     background-color: #ddd;
     border-top-color: #999;
     border-left-color: #999;
@@ -231,4 +239,19 @@ h1 {
 .config__button:focus {
     background-color: #999;
     cursor: pointer;
+}
+
+.config-dual-input {
+    display: block;
+    margin: auto;
+    margin-top: 0.25em;
+    text-align: center;
+}
+.config__input {
+    display: inline-block;
+    font-size: 1.5em;
+    width: 9.5em;
+    text-align: center;
+    background-color: #ccc;
+    color: #555;
 }

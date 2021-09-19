@@ -69,12 +69,31 @@ window.TETRIS.main = (function () {
         pauseGame()
         var promise = window.TETRIS.configDialog.show()
         promise
-            .then(function (newDifficultyLevel) {
-                resetGame()
-                window.TETRIS.dom.renderGameMode(newDifficultyLevel)
-                var newGameSpeed = window.TETRIS.difficulty.getGameSpeedByDifficulty(newDifficultyLevel)
-                gameSpeedInMs = newGameSpeed
-                resumeGame()
+            .then(function (response) {
+
+                if (typeof response === 'string') {
+                    var newDifficultyLevel = response
+
+                    resetGame()
+                    window.TETRIS.dom.renderGameMode(newDifficultyLevel)
+                    var newGameSpeed = window.TETRIS.difficulty.getGameSpeedByDifficulty(newDifficultyLevel)
+                    gameSpeedInMs = newGameSpeed
+                    resumeGame()
+                }
+
+                if (typeof response === 'object') {
+                    var newGridSize = response
+                    grid.config.height = newGridSize.height
+                    grid.config.width = newGridSize.width
+
+                    resetGame()
+                    var canvasSize = initCanvasSizes()
+                    window.TETRIS.dom.renderNewGridSize(newGridSize.width, newGridSize.height)
+                    window.TETRIS.render.init(canvasSize)
+                    window.TETRIS.background.init(canvasSize)
+                    window.TETRIS.background.renderGrid(grid.config)
+                    resumeGame()
+                }
             })
             .catch(function () {
                 resumeGame()

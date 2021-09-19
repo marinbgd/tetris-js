@@ -2,6 +2,8 @@ window.TETRIS.configDialog = (function () {
 
     var currentDeferred
     var dialogElement
+    var dialogDifficultyElement //#config-difficulty
+    var dialogGridElement //#config-grid
     var allButtonElements
     var currentActiveButtonIndex
 
@@ -13,9 +15,22 @@ window.TETRIS.configDialog = (function () {
         })
     }
 
-    function handleClick (event) {
+    function handleDifficultyClick (event) {
         currentDeferred.resolve(event.target.value)
         hide()
+    }
+
+    function handleConfigClick (event) {
+        if (event.target.nodeName === 'BUTTON') {
+            var newWidth = document.getElementById('config-grid-width').value
+            var newHeight = document.getElementById('config-grid-height').value
+            var newGridDimensions = {
+                height: +newHeight,
+                width: +newWidth,
+            }
+            currentDeferred.resolve(newGridDimensions)
+            hide()
+        }
     }
 
     function handleKeyDown (event) {
@@ -50,13 +65,15 @@ window.TETRIS.configDialog = (function () {
         }
     }
 
-    function addEventListeners (element) {
-        element.addEventListener('click', handleClick)
+    function addEventListeners () {
+        dialogDifficultyElement.addEventListener('click', handleDifficultyClick)
+        dialogGridElement.addEventListener('click', handleConfigClick)
         document.addEventListener('keydown', handleKeyDown)
     }
 
-    function removeEventListeners (element) {
-        element.removeEventListener('click', handleClick)
+    function removeEventListeners () {
+        dialogDifficultyElement.removeEventListener('click', handleDifficultyClick)
+        dialogGridElement.removeEventListener('click', handleConfigClick)
         document.removeEventListener('keydown', handleKeyDown)
     }
 
@@ -64,6 +81,10 @@ window.TETRIS.configDialog = (function () {
         if (!dialogElement) {
             //get dialog element
             dialogElement = document.getElementById('config-dialog')
+
+            dialogDifficultyElement = document.getElementById('config-difficulty')
+
+            dialogGridElement = document.getElementById('config-grid')
 
             // get all buttons
             allButtonElements = dialogElement.getElementsByTagName('button')
@@ -79,14 +100,14 @@ window.TETRIS.configDialog = (function () {
 
     function show () {
         init()
-        addEventListeners(dialogElement)
+        addEventListeners()
         currentDeferred = new Defer()
         return currentDeferred.promise
     }
 
     function hide () {
         dialogElement = document.getElementById('config-dialog')
-        removeEventListeners(dialogElement)
+        removeEventListeners()
         dialogElement.className = 'config'
     }
 

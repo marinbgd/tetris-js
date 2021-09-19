@@ -20,6 +20,8 @@
         <span id="game-time">00:00</span>
         <span class="game-score">Score: <span id="game-score">0</span></span>
 
+        <span class="game-grid-size">Size: <span id="game-grid-size-height">35</span>/<span id="game-grid-size-width">10</span></span>
+
         <aside class="next-element">
             <span class="next-element--label">Next Element:</span>
             <canvas id="next-element--canvas"></canvas>
@@ -44,12 +46,23 @@
         <canvas id="canvas"></canvas>
 
         <aside id="config-dialog" class="config">
-            <span class="config__title">Select Difficulty:</span>
-            <button type="button" tabindex="1" value="easy" class="config__button">EASY</button>
-            <button type="button" tabindex="2" value="medium" class="config__button">MEDIUM</button>
-            <button type="button" tabindex="3" value="hard" class="config__button">HARD</button>
-            <button type="button" tabindex="4" value="expert" class="config__button">EXPERT</button>
-            <button type="button" tabindex="5" value="impossible" class="config__button">IMPOSSIBLE</button>
+            <section id="config-difficulty">
+                <span class="config__title">Select Difficulty:</span>
+                <button type="button" tabindex="1" value="easy" class="config__button">EASY</button>
+                <button type="button" tabindex="2" value="medium" class="config__button">MEDIUM</button>
+                <button type="button" tabindex="3" value="hard" class="config__button">HARD</button>
+                <button type="button" tabindex="4" value="expert" class="config__button">EXPERT</button>
+                <button type="button" tabindex="5" value="impossible" class="config__button">IMPOSSIBLE</button>
+            </section>
+
+            <section id="config-grid">
+                <span class="config__title">Grid size:</span>
+                <div class="config-dual-input">
+                    <input id="config-grid-width" type="number" tabindex="6" value="10" class="config__input" placeholder="Width" />
+                    <input id="config-grid-height" type="number" tabindex="7" value="35" class="config__input" placeholder="Height" />
+                </div>
+                <button type="button" tabindex="8" class="config__button">SET GRID</button>
+            </section>
         </aside>
     </main>
 

@@ -6,6 +6,8 @@ window.TETRIS.dom = (function () {
     var modeElement
     var pointsContainerElement
     var pointsValueElement
+    var gridHeightElement
+    var gridWidthElement
     var bodyElement
     var pointsFlashingTimeout = -1
 
@@ -30,6 +32,8 @@ window.TETRIS.dom = (function () {
         modeElement = document.getElementById('game-mode')
         pointsContainerElement = document.getElementById('points-container')
         pointsValueElement = document.getElementById('points-value')
+        gridHeightElement = document.getElementById('game-grid-size-height')
+        gridWidthElement = document.getElementById('game-grid-size-width')
         bodyElement = document.body
     }
 
@@ -38,6 +42,11 @@ window.TETRIS.dom = (function () {
         pointsValueElement.innerHTML = newPoints
         window.clearTimeout(pointsFlashingTimeout)
         pointsFlashingTimeout = setTimeout(removeNewPoints, 1000)
+    }
+
+    function renderNewGridSize (width, height) {
+        gridHeightElement.innerHTML = height
+        gridWidthElement.innerHTML = width
     }
 
     function removeNewPoints () {
@@ -73,7 +82,7 @@ window.TETRIS.dom = (function () {
             case STATUSES.RUNNING:
             default:
                 statusElement.className = 'game-status game-status--run'
-                break    
+                break
         }
         statusElement.innerHTML = status
     }
@@ -91,6 +100,7 @@ window.TETRIS.dom = (function () {
         renderScore: renderScore,
         renderGameMode: renderGameMode,
         renderNewPoints: renderNewPoints,
+        renderNewGridSize: renderNewGridSize,
         setRandomBackgroundImage: setRandomBackgroundImage,
         STATUSES: STATUSES,
     }
