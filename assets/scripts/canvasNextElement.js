@@ -24,6 +24,15 @@ window.TETRIS.canvasNextElement = (function () {
         canvas.style.height = (newBlockSizeInPx * 4) + 'px'
     }
 
+    function setPositionOnScreen (mainCanvasWidth) {
+        // set just to the left of the main game canvas
+        var wrapperElement = document.getElementsByClassName('next-element')[0]
+        wrapperElement.style.position = 'absolute'
+        wrapperElement.style.right = mainCanvasWidth + 20 + 'px'
+        wrapperElement.style.top = 0.5 + 'em'
+        wrapperElement.style.marginTop = 0
+    }
+
     function clearCanvas () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
@@ -54,5 +63,6 @@ window.TETRIS.canvasNextElement = (function () {
         renderElement: renderElement,
         setCanvasSize: setCanvasSize,
         clearCanvas: clearCanvas,
+        setPositionOnScreen: setPositionOnScreen,
     }
 }())

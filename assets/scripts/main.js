@@ -33,6 +33,7 @@ window.TETRIS.main = (function () {
         window.TETRIS.background.setCanvasSize(canvasSize)
         window.TETRIS.background.renderGrid(grid.config)
         window.TETRIS.canvasNextElement.setCanvasSize(canvasSize.blockSizeInPx)
+        window.TETRIS.canvasNextElement.setPositionOnScreen(canvasSize.width)
         window.TETRIS.canvasNextElement.renderElement(nextElement)
     }
 
@@ -223,6 +224,7 @@ window.TETRIS.main = (function () {
         window.TETRIS.render.init(canvasSize)
         window.TETRIS.background.init(canvasSize)
         window.TETRIS.canvasNextElement.init(canvasSize.blockSizeInPx)
+        window.TETRIS.canvasNextElement.setPositionOnScreen(canvasSize.width)
 
         window.TETRIS.background.renderGrid(grid.config)
 
