@@ -32,18 +32,37 @@ window.TETRIS.render = (function () {
             for (j = 0; j < shapeColCount; j += 1) {
                 cell = element.shape[i][j]
                 if (cell) {
+                    // pseudo 3d shadow cell
+                    var shadowRelativeDistance = Math.ceil(blockSize/12)
+                    var shadowBlurDistance = Math.ceil(blockSize/4)
+                    var shadowSize = blockSize * 1.125
+                    var shadowColor = window.TETRIS.colors.getLightenDarkenHexColor(cell[1], -40)
+                    ctx.fillStyle = shadowColor
+                    ctx.fillRect(
+                        left + shadowRelativeDistance,
+                        top + shadowRelativeDistance,
+                        shadowSize,
+                        shadowSize
+                    )
+                    ctx.shadowColor = shadowColor
+                    ctx.shadowBlur = shadowBlurDistance
+
+                    // main cell
                     gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
                     gradient.addColorStop(0, cell[0])
                     gradient.addColorStop(1, cell[1])
                     ctx.fillStyle = gradient
                     ctx.fillRect(left, top, blockSize, blockSize)
+
+                    ctx.strokeStyle = '#FEFEFE'
+                    ctx.strokeRect(left, top, blockSize, blockSize)
                 }
                 left += blockSize
             }
             top += blockSize
         }
     }
-    
+
     function clearCanvas () {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
@@ -64,12 +83,31 @@ window.TETRIS.render = (function () {
             for (j = 0; j < gridHeight; j += 1) {
                 cell = grid[i][j]
                 if (cell) {
+                    // pseudo 3d shadow cell
+                    var shadowRelativeDistance = Math.ceil(blockSize/12)
+                    var shadowBlurDistance = Math.ceil(blockSize/4)
+                    var shadowSize = blockSize * 1.125
+                    var shadowColor = window.TETRIS.colors.getLightenDarkenHexColor(cell[1], -60)
+                    ctx.fillStyle = shadowColor
+                    ctx.fillRect(
+                        left + shadowRelativeDistance,
+                        top + shadowRelativeDistance,
+                        shadowSize,
+                        shadowSize
+                    )
+                    ctx.shadowColor = shadowColor
+                    ctx.shadowBlur = shadowBlurDistance
+
+                    // main cell
                     gradient = ctx.createLinearGradient(left, top, left + blockSize, top + blockSize)
                     gradient.addColorStop(0, cell[0])
                     gradient.addColorStop(1, cell[1])
 
                     ctx.fillStyle = gradient
                     ctx.fillRect(left, top, blockSize, blockSize)
+
+                    ctx.strokeStyle = '#FEFEFE'
+                    ctx.strokeRect(left, top, blockSize, blockSize)
                 }
                 left += blockSize
             }
