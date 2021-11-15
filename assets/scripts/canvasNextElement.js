@@ -46,11 +46,30 @@ window.TETRIS.canvasNextElement = (function () {
             left = 0
             row.forEach(function (cell) {
                 if (cell) {
+                    // pseudo 3d shadow cell
+                    var shadowRelativeDistance = Math.ceil(blockSizeInPx/12)
+                    var shadowBlurDistance = Math.ceil(blockSizeInPx/4)
+                    var shadowSize = blockSizeInPx * 1.125
+                    var shadowColor = window.TETRIS.colors.getLightenDarkenHexColor(cell[1], -60)
+                    ctx.fillStyle = shadowColor
+                    ctx.fillRect(
+                        left + shadowRelativeDistance,
+                        top + shadowRelativeDistance,
+                        shadowSize,
+                        shadowSize
+                    )
+                    ctx.shadowColor = shadowColor
+                    ctx.shadowBlur = shadowBlurDistance
+
+                    //main cell
                     var gradient = ctx.createLinearGradient(left, top, left + blockSizeInPx, top + blockSizeInPx)
                     gradient.addColorStop(0, cell[0])
                     gradient.addColorStop(1, cell[1])
                     ctx.fillStyle = gradient
                     ctx.fillRect(left, top, blockSizeInPx, blockSizeInPx)
+
+                    ctx.strokeStyle = '#FEFEFE'
+                    ctx.strokeRect(left, top, blockSizeInPx, blockSizeInPx)
                 }
                 left += blockSizeInPx
             })
