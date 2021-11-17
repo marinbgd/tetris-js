@@ -148,6 +148,10 @@ window.TETRIS.main = (function () {
         currentElement.rotate(grid.config.width, grid.config.height)
     }
 
+    function handleCounterRotate () {
+        currentElement.couterRotate(grid.config.width, grid.config.height)
+    }
+
     function handleGameOver () {
         isRunning = false
         window.TETRIS.dom.renderStatus(window.TETRIS.dom.STATUSES.GAME_OVER)
@@ -197,6 +201,10 @@ window.TETRIS.main = (function () {
 
         if (event.code === window.TETRIS.keys.keyMap.R) {
             handleUp()
+        }
+
+        if (event.code === window.TETRIS.keys.keyMap.E) {
+            handleCounterRotate()
         }
 
         if (event.code === window.TETRIS.keys.keyMap.C) {
