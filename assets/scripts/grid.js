@@ -113,13 +113,10 @@ window.TETRIS.grid = (function () {
     }
 
     function destroyGridLinesByIndexes (grid, gridIndexes) {
-        var i = 0
-        var gridIndex
         var gridColsCount = grid[0].length
 
-        for (i = 0; i < gridIndexes.length; i += 1) {
-            gridIndex = gridIndexes[i]
-            grid.splice(gridIndex, 1)
+        for (var i = gridIndexes.length - 1; i >= 0; i -= 1) {
+            grid.splice(gridIndexes[i], 1)
         }
 
         for (i = 0; i < gridIndexes.length; i += 1) {
