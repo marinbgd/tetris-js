@@ -52,6 +52,7 @@ window.TETRIS.main = (function () {
         nextElement = getNewRandomElement(currentFrame)
         window.TETRIS.render.clearCanvas()
         window.TETRIS.canvasNextElement.renderElement(nextElement)
+        window.TETRIS.dom.renderScore(score)
     }
 
     function pauseGame () {
